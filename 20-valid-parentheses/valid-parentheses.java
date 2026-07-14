@@ -1,0 +1,22 @@
+class Solution {
+    public boolean isValid(String s) {
+        HashMap<Character , Character> map = new HashMap<>();
+        // map.put('(' , ')');
+        // map.put('{' , '}');
+        // map.put('[' , ']');
+        map.put(')' , '(');
+        map.put('}' , '{');
+        map.put(']' , '[');
+        Stack<Character> st = new Stack<>();
+        for(int i=0 ; i<s.length() ; i++){
+            if(!st.isEmpty() && map.get(s.charAt(i)) == st.peek()){
+                st.pop();
+            }
+            else{
+                st.push(s.charAt(i));
+            }
+        }
+        if(st.isEmpty()) return true;
+        return false;
+    }
+}
