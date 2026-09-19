@@ -8,8 +8,7 @@ class Solution {
         return floodFill(image, sr, sc, color, initial, visited, r, c);
     }
 
-    public int[][] floodFill(int[][] image, int sr, int sc, int color,
-                             int initial, boolean[][] visited, int r, int c) {
+    public int[][] floodFill(int[][] image, int sr, int sc, int color, int initial, boolean[][] visited, int r, int c) {
 
         if(sr < 0 || sr >= image.length || sc < 0 || sc >= image[0].length)
             return image;
