@@ -15,6 +15,5 @@ class Solution {
             answer[k] = l[k]*r[k] ; 
         }
         return answer;
-        
     }
 }
