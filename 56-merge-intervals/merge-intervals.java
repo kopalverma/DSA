@@ -1,31 +1,41 @@
 class Solution {
-    public int[][] merge(int[][] intervals) {
-        if (intervals.length <= 1) return intervals;
+    public int[][] merge(int[][] intervals) 
+    {
+       Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
+       int[][] arr = new int[intervals.length][2]; 
+       int start = intervals[0][0];
+       int end = intervals[0][1];
+       int k = 0;
 
-        List<List<Integer>> list = new ArrayList<>();
-        Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
-
-        int i = 1;
-        int s = intervals[0][0];
-        int e = intervals[0][1];
-
-        while (i < intervals.length) {
-            if (intervals[i][0] <= e) {
-                e = Math.max(e, intervals[i][1]);
-            } else {
-                list.add(new ArrayList<>(Arrays.asList(s, e)));
-                s = intervals[i][0];
-                e = intervals[i][1];
+       for(int i=0;i<intervals.length-1;i++)
+       {
+        if(intervals[i+1][0] <= end)
+        {
+            if(intervals[i+1][1] > end)          
+            {
+                end = intervals[i+1][1];
             }
-            i++;
         }
+        else
+        {
+            arr[k][0] = start;
+            arr[k][1] = end;
+            k++;
+            start = intervals[i+1][0];
+            end = intervals[i+1][1];
+        }
+       }
 
-        list.add(new ArrayList<>(Arrays.asList(s, e)));
+       arr[k][0] = start;                        
+       arr[k][1] = end;
+       k++;
 
-        int[][] arr = list.stream()
-            .map(l -> l.stream().mapToInt(Integer::intValue).toArray())
-            .toArray(int[][]::new);
-
-        return arr;
+       int[][] arr2 = new int[k][2];
+       for(int i=0;i<k;i++)
+       {
+        arr2[i][0] = arr[i][0];
+        arr2[i][1] = arr[i][1];
+       }
+       return arr2;
     }
 }
